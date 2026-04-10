@@ -1,11 +1,11 @@
 'use strict';
 
-if (process.env.NODE_ENV !== 'production') {
-  try { require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') }); } catch (_) {}
-}
+try { require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') }); } catch (_) {}
+
+const port = parseInt(process.env.PORT, 10);
 
 const config = Object.freeze({
-  port: parseInt(process.env.PORT, 10) || 4040,
+  port: Number.isFinite(port) && port > 0 ? port : 4040,
   databaseUrl: process.env.DATABASE_URL || '',
   jwtSecret: process.env.JWT_SECRET || 'dev-secret-change-me',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1h',
